@@ -12,7 +12,7 @@ const login=async(req,res,next)=>{
 
  try {
     const user=await userModel.findOne({email})
-    if(!user) res.json({
+    if(!user) return res.json({
         success:false,
         msg:"user dosen't exists"
     })

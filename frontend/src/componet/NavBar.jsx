@@ -5,6 +5,8 @@ import { ShopContext } from '../context/ShopContext'
 
 
 const NavBar = () => {
+    const [showProfileMenu, setShowProfileMenu] = useState(false);
+
     const [visiable, setVisiable] = useState(false)
     const {setShowSearch}=useContext(ShopContext)
     const {getCartCount,token,setToken,setcartItems}=useContext(ShopContext)
@@ -40,24 +42,67 @@ setcartItems({})
             </ul>
             <div className=' flex items-center gap-3 sm:gap-6'>
                 <img onClick={()=>setShowSearch(true)} src={assets.search_icon} className='w-5' alt="" />
-                <div className=' group relative '>
-                   <Link to={'/login'}> <img src={assets.profile_icon} onClick={()=>token?null:navigate('/login')} className='w-5' alt="" /></Link>
-        {/* hidden property for small screen is hidden by me*/}         
-        {
-            token  &&  <div className='hidden absolute group-hover:block  right-[-5px] p-3 w-36 cursor-pointer text-gray-600 bg-slate-300'>
-                        <p onClick={()=>navigate('/order')} className=' hover:text-black'>MyOrder</p>
-                        <p onClick={handelLogout} className=' hover:text-black'>LogOut</p>
-                        <p className=' hover:text-black'>Profile</p>
+                <div className="relative group">
 
-                    </div>
 
-        }
-                </div>
-                <Link to={'/cart'} className='relative'>
+<div className='flex gap-4'>
+    <div className="relative group">
+
+  {/* Profile Icon */}
+  <img
+    src={assets.profile_icon}
+    className="w-5 cursor-pointer"
+    onClick={() => {
+      if (!token) return navigate("/login");
+      setShowProfileMenu(!showProfileMenu); // toggle mobile
+    }}
+    alt=""
+  />
+
+  {/* Dropdown Menu */}
+  {token && (
+    <div
+      className={
+        `absolute right-[-5px] p-3 w-36 cursor-pointer text-gray-600 bg-slate-300 rounded
+         hidden sm:group-hover:block sm:opacity-100 sm:transition-all sm:duration-200 sm:mt-2 sm:text-sm 
+         sm:block ` +
+        (showProfileMenu ? "block" : "hidden")
+      }
+    >
+      <p
+        onClick={() => {
+          navigate("/order");
+          setShowProfileMenu(false);
+        }}
+        className="hover:text-black"
+      >
+        MyOrder
+      </p>
+
+      <p
+        onClick={() => {
+          handelLogout();
+          setShowProfileMenu(false);
+        }}
+        className="hover:text-black"
+      >
+        LogOut
+      </p>
+
+      <p className="hover:text-black">Profile</p>
+    </div>
+  )}
+</div>
+
+               <div>
+                 <Link to={'/cart'} className='relative'>
                     <img src={assets.cart_icon} className=' w-5' alt="" />
                     <p className=' absolute   aspect-square leading-4 right-[-5px] bottom-[-5px] left-[8px] text-center rounded-full bg-black px-[5px] py-[6] text-slate-300 text-[10px]'>{getCartCount()}</p>
                 </Link>
-                <img onClick={() => setVisiable(true)} src={assets.menu_icon} className='w-5 sm:hidden ' alt="" />
+               </div>
+               <img onClick={() => setVisiable(true)} src={assets.menu_icon} className='w-5 sm:hidden ' alt="" />
+</div>
+                
             </div>
             <div className={`absolute right-0 bottom-0 top-0 bg-white ${visiable ? 'w-full' : 'w-0'}`}>
                 <div className='overflow-hidden my-3 flex flex-col gap-3 text-gray-400'>
@@ -81,6 +126,7 @@ setcartItems({})
                   </div>
                 </div>
             </div>
+        </div>
         </div>
     )
 }
