@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+
+.active{
+  border:pink;
+  background-color: palevioletred;
+}
