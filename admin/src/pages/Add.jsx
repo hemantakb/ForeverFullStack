@@ -49,7 +49,7 @@ const Add = ({token}) => {
   return (
     <div>
       <h1 className='text-2xl font-semibold py-3'>Upload Images</h1>
-      <form onSubmit={handelSubmit} className='flex flex-col gap-3' >
+      <form onSubmit={handelSubmit} className='flex flex-col gap-4' >
         
         <div className='flex  gap-2'>
           <label htmlFor="image1">
