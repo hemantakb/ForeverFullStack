@@ -148,6 +148,15 @@ useEffect(() => {
     toast.error('Unbale to use the Rozarpay Choose another payment method');
   }
 }, [message]);
+useEffect(()=>{
+if(!token){
+  navigate('/cart')
+  toast.error('Please login or SignUp to perform actions')
+}else if(getCartCount()===0){
+navigate('/cart')
+toast.error("Please add item's to cart")
+}
+},[token])
 
   const navigate=useNavigate()
   return (

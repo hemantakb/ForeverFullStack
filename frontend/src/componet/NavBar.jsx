@@ -46,8 +46,7 @@ setcartItems({})
 
 
 <div className='flex gap-4'>
-    <div className="relative group">
-
+   <div className="relative group">
   {/* Profile Icon */}
   <img
     src={assets.profile_icon}
@@ -62,12 +61,12 @@ setcartItems({})
   {/* Dropdown Menu */}
   {token && (
     <div
-      className={
-        `absolute right-[-5px] p-3 w-36 cursor-pointer text-gray-600 bg-slate-300 rounded
-         hidden sm:group-hover:block sm:opacity-100 sm:transition-all sm:duration-200 sm:mt-2 sm:text-sm 
-         sm:block ` +
-        (showProfileMenu ? "block" : "hidden")
-      }
+      className={`
+        absolute right-[-5px] p-3 w-36 cursor-pointer text-gray-600 bg-slate-300 rounded
+        text-sm mt-2 transition-all duration-200
+        sm:opacity-0 sm:invisible sm:group-hover:opacity-100 sm:group-hover:visible
+        ${showProfileMenu ? "block sm:hidden" : "hidden sm:block sm:opacity-0 sm:invisible"}
+      `}
     >
       <p
         onClick={() => {

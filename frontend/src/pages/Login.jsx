@@ -41,12 +41,12 @@ const Login = () => {
    }else{
 try {
   const res=await axios.post(backendUrl +'api/user/login',{email:formData.email,password:formData.password})
-console.log(res);
+
 if(res.data.success){
   setToken(res.data.token)
   localStorage.setItem('token',res.data.token)
 }else{
-  toast.error('An error occur')
+  toast.error('Please enter a valid email and the password must be greaterthan equall to 8')
 }
 
 } catch (error) {
